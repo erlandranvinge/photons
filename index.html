@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>photons</title>
+</head>
+<body>
+<script src="gfx.js"></script>
+<script src="photons.js"></script>
+<script>
+	document.onkeydown = e => switchToMode(e.key, 9999);
+	let gfx = new Gfx(szImg, szImg + 48);
+
+	gfx.canvas.onmousedown = e => {
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+		mousePressed();
+	};
+
+	gfx.canvas.onmouseup = e => {
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+		mouseReleased();
+	};
+
+	gfx.canvas.onmousemove = e => {
+		mouseX = e.clientX;
+		mouseY = e.clientY;
+		if (e.buttons > 0)
+			mouseDragged();
+	};
+
+	function tick() {
+		draw();
+		window.requestAnimationFrame(tick);
+	}
+
+	gfx.loadImages(['1_32.png', '2_32.png', '3_32.png'], () => {
+		setup();
+		tick();
+	});
+</script>
+</body>
+</html>
